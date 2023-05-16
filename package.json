@@ -1,5 +1,5 @@
 {
-  "name": "my-blog",
+  "name": "my-shop",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "13.4.1",
+    "bootstrap": "^5.2.3",
+    "next": "13.4.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-loading-indicators": "^0.1.1"
+    "react-bootstrap": "^2.7.4",
+    "react-dom": "18.2.0"
   }
 }
