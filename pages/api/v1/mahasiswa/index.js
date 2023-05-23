@@ -1,9 +1,11 @@
 
-import nextConnect from 'next-connect';
+import { createRouter } from 'next-connect';
 
 import { Mahasiswa } from '@/models';
 
-const handler = nextConnect()
+const router = createRouter()
+
+const handler = router
     .get(async (req, res) => {
         var data = await Mahasiswa.findAndCountAll();
         return res.json({ status: true, data });
@@ -14,4 +16,4 @@ const handler = nextConnect()
         return res.json({ insert });
     });
 
-export default handler;
+export default handler.handler();
