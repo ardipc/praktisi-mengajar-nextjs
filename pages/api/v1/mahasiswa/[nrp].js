@@ -1,9 +1,9 @@
-import nextConenct from 'next-connect';
+import { createRouter } from 'next-connect';
 
 import { Mahasiswa } from '../../../../models/index';
 import { where } from 'sequelize';
 
-const handler = nextConenct()
+const handler = createRouter()
     .get(async (req, res) => {
         const { nrp } = req.query;
         var mahasiwa = await Mahasiswa.findByPk(nrp);
@@ -21,4 +21,4 @@ const handler = nextConenct()
         res.json({ status: true });
     });
 
-export default handler;
+export default handler.handler();
