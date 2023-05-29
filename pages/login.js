@@ -24,7 +24,10 @@ const Login = () => {
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
                                 <button className="w-100 btn btn-lg btn-primary" type="submit">Masuk</button>
-                                <p className="mt-3"><Link href="/" className="my-5">Kembali ke Beranda</Link></p>
+                                <div className="d-flex justify-content-between">
+                                    <p className="mt-3"><Link href="/" className="my-5">Kembali ke Beranda</Link></p>
+                                    <p className="mt-3"><Link href="/daftar">Belum punya akun?</Link></p>
+                                </div>
                                 <p className="mt-5 mb-3 text-muted">© Praktisi Mengajar 2023</p>
                             </form>
                         </main>
