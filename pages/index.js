@@ -28,8 +28,8 @@ function NavScrollExample() {
           <Row>
               {
                 [1,2,3,4].map((item, key) => (
-                  <Col>
-                    <Card key={key}>
+                  <Col key={key}>
+                    <Card>
                       <Card.Body className='text-center my-4'>
                         <Card.Title>Kategori Produk {item}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
