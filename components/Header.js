@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-const Header = () => {
+const Header = (props) => {
+    const { isLoged } = props;
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -32,11 +33,20 @@ const Header = () => {
                         aria-label="Search"
                         />
                         <Button variant="outline-success">Search</Button>
-                        <Link href={'/login'}>
-                            <Button variant="outline-primary mx-2">
-                                Masuk
-                            </Button>
-                        </Link>
+                        {
+                            isLoged ?
+                                <Link href={'/auth/logout'}>
+                                    <Button variant="outline-danger mx-2">
+                                        Keluar
+                                    </Button>
+                                </Link>
+                                : 
+                                <Link href={'/login'}>
+                                    <Button variant="outline-primary mx-2">
+                                        Masuk
+                                    </Button>
+                                </Link>
+                        }
                     </Form>
                 </Navbar.Collapse>
             </Container>

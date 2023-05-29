@@ -1,15 +1,27 @@
 import Header from '@/components/Header';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 
-function NavScrollExample() {
+function Home() {
+  const [isLoged, setIsLoged] = useState(false);
+
+  useEffect(() => {
+    checkLoged();
+  }, []);
+
+  const checkLoged = () => {
+    let token = localStorage.getItem('token');
+    setIsLoged(token ? true : false);
+  }
+
   return (
     <>
       <Head>
         <title>Beranda</title>
       </Head>
-      <Header />
+      <Header isLoged={isLoged} />
       <section className="py-5 text-center container">
         <div className="row py-lg-5">
           <div className="col-lg-6 col-md-8 mx-auto">
@@ -76,4 +88,4 @@ function NavScrollExample() {
   );
 }
 
-export default NavScrollExample;
+export default Home;

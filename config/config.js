@@ -1,9 +1,9 @@
-{
+module.exports = {
   "development": {
-    "username": "kelompok1",
-    "password": "f39ffP7bG9D2",
-    "database": "kelompok_1",
-    "host": "database-1.ckl3qwqewfrz.ap-southeast-1.rds.amazonaws.com",
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_NAME,
+    "host": process.env.DB_HOST,
     "dialect": "mysql"
   },
   "test": {

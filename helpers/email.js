@@ -14,19 +14,19 @@ export default async function sendMail(data) {
     const { to, subject, content } = data;
 
     var mailOptions = {
-        from: process.env.MAIL_FROM,
-        to: to,
-        subject: subject,
-        text: content
+      from: process.env.MAIL_FROM,
+      to: to,
+      subject: subject,
+      text: content
     };
 
     transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-          return false;
-        } else {
-            console.log(info);
-          return true;
-        }
+      if (error) {
+        console.log(error);
+        return false;
+      } else {
+          // console.log(info);
+        return true;
+      }
     });  
 }

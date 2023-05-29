@@ -1,24 +1,23 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 
-const Login = () => {
-    const router = useRouter();
+const Daftar = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [title, setTitle] = useState("Silakan Masuk");
+    const [title, setTitle] = useState("");
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const _submitLogin = (e) => {
+    const _submitDaftar = (e) => {
         e.preventDefault();
         setIsLoading(true);
         let payload = {
-            email, password
+            name, email, password
         };
-        fetch(`/api/v1/auth/login`, {
+        fetch(`/api/v1/auth/daftar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,14 +25,7 @@ const Login = () => {
             body: JSON.stringify(payload)
         }).then(res => res.json()).then(data => {
             const { status, result } = data;
-            console.log(data);
-            if(status) {
-                setTitle("Sedang mengalihkan...");
-                localStorage.setItem('token', result);
-                router.push('/');
-            } else {
-                setTitle(result);
-            }
+            setTitle(status === true ? result : "Ada yang error nih.")
             setIsLoading(false);
         })
     }
@@ -45,11 +37,15 @@ const Login = () => {
             </Head>
             <Container className="text-center m-auto">
                 <Row className="justify-content-center mt-5">
-                    <Col md={4} className="pt-5">
+                    <Col md={6} className="pt-3">
                         <main className="form-signin w-100 m-auto">
-                            <form onSubmit={e => _submitLogin(e)}>
+                            <form onSubmit={e => _submitDaftar(e)}>
                                 <img className="mb-4" src="https://static.vecteezy.com/system/resources/previews/019/787/018/original/shopping-cart-icon-shopping-basket-on-transparent-background-free-png.png" alt="Gambar" width={120} />
-                                <h1 className="h3 mb-3 fw-normal">{title}</h1>
+                                <h1 className="h3 mb-3 fw-normal">{title ? title : "Daftar Akun"}</h1>
+                                <div className="form-floating">
+                                    <input required value={name} onChange={e => setName(e.target.value)} type="text" className="form-control" id="floatingName" placeholder="John Doe" />
+                                    <label htmlFor="floatingName">Fullname</label>
+                                </div>
                                 <div className="form-floating mt-3">
                                     <input required value={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
                                     <label htmlFor="floatingInput">Email address</label>
@@ -60,12 +56,12 @@ const Login = () => {
                                 </div>
                                 <button className="w-100 btn btn-lg btn-primary" type="submit">
                                     {
-                                        isLoading ? <Spinner /> : "Masuk"
+                                        isLoading ? <Spinner /> : "Daftar"
                                     }
                                 </button>
                                 <div className="d-flex justify-content-between">
                                     <p className="mt-3"><Link href="/" className="my-5">ke Beranda</Link></p>
-                                    <p className="mt-3"><Link href="/daftar">Belum punya akun?</Link></p>
+                                    <p className="mt-3"><Link href="/login">atau Masuk Aja</Link></p>
                                 </div>
                                 <p className="mt-5 mb-3 text-muted">© Praktisi Mengajar 2023</p>
                             </form>
@@ -77,4 +73,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Daftar;
