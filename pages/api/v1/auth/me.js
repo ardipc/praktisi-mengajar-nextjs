@@ -10,7 +10,7 @@ const handler = createRouter()
         await mongoDB();
         
         const { user } = req;
-        let get = await Users.findOne({where: {email: user.email}});
+        let get = await Users.findOne({ email: user.email });
         res.json({ status: true, result: get });        
     });
 
