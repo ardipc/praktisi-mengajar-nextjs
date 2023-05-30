@@ -1,5 +1,4 @@
 import { createRouter } from "next-connect";
-
 import { Users } from "@/models";
 var jwt = require('jsonwebtoken');
 
