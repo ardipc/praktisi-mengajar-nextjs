@@ -1,29 +1,31 @@
 import { createRouter } from "next-connect";
-import { Users } from '@/models';
+import Users from '@/models/users';
+import mongoDB from "@/helpers/mongodb";
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 
 const handler = createRouter()
     .post(async (req, res) => {
+        await mongoDB();
+        
         const { body } = req;
         // {
         //     "email": "notifikasi.ong@gmail.com",
         //     "password": "admin123"
         // }
 
-        let mhs = await Users.findOne({
-            where: { 
-                email: body.email
-            } 
+        let mhs = await Users.findOne({ 
+            email: body.email
         });
 
+        // console.log(mhs);
+        // res.json({ status: true });
         if(mhs) {
-            
             let isPass = bcrypt.compareSync(body.password, mhs.password);
             if(isPass){
                 var token = jwt.sign({ email: body.email }, process.env.SECRET_JWT, { expiresIn: "3d" });
-                await Users.update({ token: token }, { where: { email: body.email } });
+                await Users.updateOne({ email: body.email }, { token: token });
                 
                 res.json({ 
                     status: true, 

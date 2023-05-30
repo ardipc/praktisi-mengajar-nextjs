@@ -1,12 +1,14 @@
 import { createRouter } from "next-connect";
 import middleware from '../../../../helpers/middleware';
 
-import { Users } from "@/models";
+import mongoDB from "@/helpers/mongodb";
+import Users from '@/models/users';
 
 const handler = createRouter()
     .use(middleware)
     .get(async (req, res) => {
-        let result = await Users.findAndCountAll();
+        await mongoDB();
+        let result = await Users.find({});
         res.json({ status: true, result });        
     });
 
