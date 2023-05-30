@@ -57,8 +57,8 @@ function Home() {
       <section className='my-5'>
         <Container>
           <Row className='mb-4'>
-            <Col className='d-flex justify-content-between'>
-              <span>Produk Baru 🚀</span>
+            <Col className='d-flex justify-content-between align-items-center'>
+              <span className='font-30'>Produk Baru 🚀</span>
               <Link href="/">Semua Produk</Link>
             </Col>
           </Row>
