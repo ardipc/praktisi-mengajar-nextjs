@@ -12,6 +12,7 @@
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1",
     "mysql2": "^3.3.1",
     "next": "^13.4.5-canary.0",
     "next-connect": "^1.0.0",
