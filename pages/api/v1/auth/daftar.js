@@ -24,7 +24,7 @@ const handler = createRouter()
             content: `${process.env.APP_BASE}/auth/aktivasi?q=${enc}`
         });
 
-        res.json({ status: true, result: "Mohon cek email kamu untuk aktivasi akun." });
+        return res.json({ status: true, result: "Mohon cek email kamu untuk aktivasi akun." });
     });
 
 export default handler.handler();

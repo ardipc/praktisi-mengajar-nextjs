@@ -15,7 +15,7 @@ const handler = createRouter()
         const { body } = req;
         await mongoDB();
         let result = await Categories.create(body);
-        res.json({ status: true, result });
+        return res.json({ status: true, result });
     });
 
 export default handler.handler();

@@ -12,9 +12,9 @@ const handler = createRouter()
             let verify = jwt.verify(query.q, process.env.SECRET_JWT)
             await Users.updateOne({ email: verify.email }, { is_active: true });
 
-            res.json({ status: true, result: "Akun sudah diaktifkan." });
+            return res.json({ status: true, result: "Akun sudah diaktifkan." });
         } catch (error) {
-            res.json({ status: false, result: "Link sudah expired."})
+            return res.json({ status: false, result: "Link sudah expired."})
         }
     });
 

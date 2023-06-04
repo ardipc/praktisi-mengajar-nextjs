@@ -25,7 +25,6 @@ export default async function sendMail(data) {
         console.log(error);
         return false;
       } else {
-          // console.log(info);
         return true;
       }
     });  

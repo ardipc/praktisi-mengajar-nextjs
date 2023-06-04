@@ -9,7 +9,7 @@ const handler = createRouter()
     .get(async (req, res) => {
         await mongoDB();
         let result = await Users.find({});
-        res.json({ status: true, result });        
+        return res.json({ status: true, result });        
     });
 
 export default handler.handler();

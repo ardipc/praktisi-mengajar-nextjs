@@ -11,7 +11,7 @@ const handler = createRouter()
         
         const { user } = req;
         let get = await Users.findOne({ email: user.email });
-        res.json({ status: true, result: get });        
+        return res.json({ status: true, result: get });        
     });
 
 export default handler.handler();

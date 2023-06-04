@@ -2,7 +2,8 @@ import mongoose, { mongo } from "mongoose";
 const schema = new mongoose.Schema({
   category_id: {
     type: mongoose.Types.ObjectId,
-    ref: 'categories'
+    ref: 'categories',
+    alias: 'category'
   },
   name: String,
   image: String,

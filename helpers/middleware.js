@@ -11,14 +11,14 @@ const router = createRouter()
             // ['Bearer', 'xxx']
             try {
                 var decoded = jwt.verify(pecah[1], process.env.SECRET_JWT);
-                console.log(decoded);
+                // console.log(decoded);
                 req.user = decoded;
-                next();
+                return next();
             } catch(err) {
-                res.json({ status: false, result: "Unauthorize." });
+                return res.json({ status: false, result: "Unauthorize." });
             }
         } else {
-            res.json({ status: false, result: "Need Authorization." });
+            return res.json({ status: false, result: "Need Authorization." });
         }
     });
 
