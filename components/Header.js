@@ -10,7 +10,7 @@ const Header = (props) => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#">Ardiansyah</Navbar.Brand>
+                <Navbar.Brand><Link href="/">Ardiansyah</Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -18,11 +18,8 @@ const Header = (props) => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Beranda</Nav.Link>
-                        <Nav.Link href="#action2">Kategori</Nav.Link>
-                        <Nav.Link href="#">
-                            Produk Baru
-                        </Nav.Link>
+                        <Nav.Link href="/kategori">Kategori</Nav.Link>
+                        <Nav.Link href="/baru">Produk Baru</Nav.Link>
                     </Nav>
                     
                     <Form className="d-flex">
