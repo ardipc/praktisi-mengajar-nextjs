@@ -10,7 +10,7 @@ const Header = (props) => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand><Link href="/">Ardiansyah</Link></Navbar.Brand>
+                <Navbar.Brand><Link href="/" className='text-decoration-none'>Ardiansyah</Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
