@@ -59,7 +59,7 @@ function Home() {
           <Row className='mb-4'>
             <Col className='d-flex justify-content-between align-items-center'>
               <span className='font-30'>Produk Baru 🚀</span>
-              <Link href="/">Semua Produk</Link>
+              <Link href="/produk">Semua Produk</Link>
             </Col>
           </Row>
           <Row>
