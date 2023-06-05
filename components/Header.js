@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -7,6 +9,14 @@ import Navbar from 'react-bootstrap/Navbar';
 
 const Header = (props) => {
     const { isLoged } = props;
+    const router = useRouter();
+    
+    const [cari, setCari] = useState("");
+
+    const _cariProduk = (slug) => {
+        router.push(`/cari/${slug}`);
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -18,18 +28,20 @@ const Header = (props) => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="/kategori">Kategori</Nav.Link>
-                        <Nav.Link href="/baru">Produk Baru</Nav.Link>
+                        <Nav.Link as={Link} href="/kategori">Kategori</Nav.Link>
+                        <Nav.Link as={Link} href="/baru">Produk Baru</Nav.Link>
                     </Nav>
                     
                     <Form className="d-flex">
                         <Form.Control
-                        type="search"
-                        placeholder="Search"
-                        className="me-2"
-                        aria-label="Search"
+                            type="search"
+                            placeholder="Cari produk"
+                            className="me-2"
+                            aria-label="Cari produk"
+                            value={cari}
+                            onChange={e => setCari(e.target.value)}
                         />
-                        <Button variant="outline-success">Search</Button>
+                        <Button onClick={e => _cariProduk(cari)} variant="outline-success">Cari</Button>
                         {
                             isLoged ?
                                 <Link href={'/auth/logout'}>

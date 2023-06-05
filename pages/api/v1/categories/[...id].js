@@ -1,27 +1,37 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 import { createRouter } from "next-connect";
 import middleware from '../../../../helpers/middleware';
 
 import mongoDB from "@/helpers/mongodb";
 import Categories from '@/models/categories';
+import Products from '@/models/products';
 
 const handler = createRouter()
     .use(middleware)
     .get(async (req, res) => {
         await mongoDB();
         const { query } = req;
-        let result = await Categories.findById(query.id);
-        return res.json({ status: true, result });        
+        if(query.id[1] === 'products') {
+            console.log(query.id)
+            let result = await Products.find({ where: { category_id: new ObjectId(query.id[0]) }});
+            return res.json({ status: true, result });
+        } else {
+            let result = await Categories.findById(query.id[0]);
+            return res.json({ status: true, result });        
+        }
     })
     .put(async (req, res) => {
         await mongoDB();
         const { query, body } = req;
-        let result = await Categories.update({_id: query.id}, body);
+        let result = await Categories.update({_id: query.id[0]}, body);
         return res.json({ status: true, result });
     })
     .delete(async (req, res) => {
         await mongoDB();
         const { query } = req;
-        let del = await Categories.deleteOne({ _id: query.id });
+        let del = await Categories.deleteOne({ _id: query.id[0] });
         return res.json({ status: true, result: del });
     });
 
