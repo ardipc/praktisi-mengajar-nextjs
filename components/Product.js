@@ -1,12 +1,9 @@
+import { changeRp } from "@/helpers/rupiah";
 import Link from "next/link";
-
-const changeRp = (value) => {
-  return value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
-}
 
 const Product = ({ item }) => {
   return (
-    <div className="col-md-3 mb-4">
+    <div className="col-xl-3 col-md-4 col-sm-6 mb-4">
       <div className="card h-100">
         <div className="badge bg-dark text-white position-absolute" style={{ top: '0.5rem', right: '0.5rem' }}>{item.category_id.name}</div>
         {/* Product image*/}
