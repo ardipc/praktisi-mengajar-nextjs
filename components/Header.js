@@ -13,7 +13,8 @@ const Header = (props) => {
     
     const [cari, setCari] = useState("");
 
-    const _cariProduk = (slug) => {
+    const _cariProduk = (e, slug) => {
+        e.preventDefault();
         router.push(`/cari/${slug}`);
     }
 
@@ -29,10 +30,9 @@ const Header = (props) => {
                         navbarScroll
                     >
                         <Nav.Link as={Link} href="/kategori">Kategori</Nav.Link>
-                        <Nav.Link as={Link} href="/baru">Produk Baru</Nav.Link>
                     </Nav>
                     
-                    <Form className="d-flex">
+                    <Form className="d-flex" onSubmit={e => _cariProduk(e, cari)}>
                         <Form.Control
                             type="search"
                             placeholder="Cari produk"
@@ -41,7 +41,7 @@ const Header = (props) => {
                             value={cari}
                             onChange={e => setCari(e.target.value)}
                         />
-                        <Button onClick={e => _cariProduk(cari)} variant="outline-success">Cari</Button>
+                        <Button onClick={e => _cariProduk(e, cari)} variant="outline-success">Cari</Button>
                         {
                             isLoged ?
                                 <Link href={'/auth/logout'}>
