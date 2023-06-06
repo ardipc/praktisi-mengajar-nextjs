@@ -25,7 +25,7 @@ const Daftar = () => {
             body: JSON.stringify(payload)
         }).then(res => res.json()).then(data => {
             const { status, result } = data;
-            setTitle(status === true ? result : "Ada yang error nih.")
+            setTitle(result)
             setIsLoading(false);
         })
     }
@@ -41,7 +41,7 @@ const Daftar = () => {
                         <main className="form-signin w-100 m-auto">
                             <form onSubmit={e => _submitDaftar(e)}>
                                 <img className="mb-4" src="https://static.vecteezy.com/system/resources/previews/019/787/018/original/shopping-cart-icon-shopping-basket-on-transparent-background-free-png.png" alt="Gambar" width={120} />
-                                <h1 className="h3 mb-3 fw-normal">{title ? title : "Daftar Akun"}</h1>
+                                <h1 className="h3 mb-3 fw-normal">{title}</h1>
                                 <div className="form-floating">
                                     <input required value={name} onChange={e => setName(e.target.value)} type="text" className="form-control" id="floatingName" placeholder="John Doe" />
                                     <label htmlFor="floatingName">Fullname</label>

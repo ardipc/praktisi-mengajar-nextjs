@@ -13,18 +13,24 @@ const handler = createRouter()
 
         const { body } = req;
 
-        let encPass = bcrypt.hashSync(body.password, 10);
-        
-        await Users.create({...body, password: encPass, is_active: false });
-        let enc = jwt.sign({ email: body.email }, process.env.SECRET_JWT, { expiresIn: '1h' });
-        
-        await sendMail({
-            to: body.email,
-            subject: 'Aktivasi Akun',
-            content: `${process.env.APP_BASE}/auth/aktivasi?q=${enc}`
-        });
+        let checkIfExist = await Users.findOne({ email: body.email });
+        if(checkIfExist) {
+            res.json({ status: false, result: "Email sudah terdaftar." });
+        } else {
+            let encPass = bcrypt.hashSync(body.password, 10);
+            
+            await Users.create({...body, password: encPass, is_active: false });
+            let enc = jwt.sign({ email: body.email }, process.env.SECRET_JWT, { expiresIn: '1h' });
+            
+            await sendMail({
+                to: body.email,
+                subject: 'Aktivasi Akun',
+                content: `${process.env.APP_BASE}/auth/aktivasi?q=${enc}`
+            });
+    
+            return res.json({ status: true, result: "Mohon cek email kamu untuk aktivasi akun." });
+        }
 
-        return res.json({ status: true, result: "Mohon cek email kamu untuk aktivasi akun." });
     });
 
 export default handler.handler();

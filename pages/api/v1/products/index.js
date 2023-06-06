@@ -5,7 +5,7 @@ import mongoDB from "@/helpers/mongodb";
 import Products from '@/models/products';
 
 const handler = createRouter()
-    .use(middleware)
+    // .use(middleware)
     .get(async (req, res) => {
         await mongoDB();
         let result = await Products.find({})
