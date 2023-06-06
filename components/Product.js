@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+const changeRp = (value) => {
+  return value.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+}
+
 const Product = ({ item }) => {
   return (
     <div className="col-md-3 mb-4">
@@ -17,7 +21,7 @@ const Product = ({ item }) => {
             {/* Product name*/}
             <h5 className="fw-bolder">{item.name}</h5>
             {/* Product price*/}
-            {item.price}
+            {changeRp(item.price)}
           </div>
         </div>
         {/* Product actions*/}

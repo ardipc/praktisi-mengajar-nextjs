@@ -56,10 +56,10 @@ function Home() {
         <Container>
           <Row>
             <Col>
-              Kategori: {kategori.name}
+              <h3>Kategori: {kategori.name}</h3>
             </Col>
           </Row>
-          <Row>
+          <Row className='mt-4'>
             {
               produk.map((item, key) => (
                 <Product key={key} item={item} />

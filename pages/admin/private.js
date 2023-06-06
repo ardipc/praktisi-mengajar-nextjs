@@ -1,29 +1,26 @@
-import { withSessionSsr } from "@/libs/iron-session";
+import { getCookie } from 'cookies-next';
 
-export const getServerSideProps = withSessionSsr(
-    async ({ req, res}) => {
-        const { user } = req;
-        console.log(user)
+export const getServerSideProps = async ({ req, res}) => {
+    const user = getCookie('user', {req, res});
+    console.log(user);
 
-        if(!user) {
-            return {
-                notFound: true
-            };
-        } 
-
+    if(user) {
         return {
             props: {
-                user
+
             }
         }
     }
-);
+
+    return {
+        notFound: true
+    }
+};
 
 const Private = (props) => {
-    console.log(props.user)
     return (
         <div>
-            Private {user.email}
+            Private
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { removeCookies } from 'cookies-next';
 
 export async function getServerSideProps(context) {
     return {
@@ -15,8 +16,8 @@ const Aktivasi = (props) => {
     }, []);
 
     const autoFecth = () => {
-        localStorage.removeItem('token');
-        router.push('/login');
+        removeCookies('user');
+        router.push('/admin');
     }
 
     return (

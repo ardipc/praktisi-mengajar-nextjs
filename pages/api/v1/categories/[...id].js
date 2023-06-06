@@ -9,13 +9,16 @@ import Categories from '@/models/categories';
 import Products from '@/models/products';
 
 const handler = createRouter()
-    .use(middleware)
+    // .use(middleware)
     .get(async (req, res) => {
         await mongoDB();
         const { query } = req;
         if(query.id[1] === 'products') {
-            console.log(query.id)
-            let result = await Products.find({ where: { category_id: new ObjectId(query.id[0]) }});
+            let result = await Products.find({ category_id: new ObjectId(query.id[0]) }).populate({
+                path: 'category_id',
+                select: 'name description',
+                options: { alias: 'category' }
+            });
             return res.json({ status: true, result });
         } else {
             let result = await Categories.findById(query.id[0]);

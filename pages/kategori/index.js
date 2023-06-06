@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import Product from '@/components/Product';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -14,7 +15,6 @@ function Home() {
   useEffect(() => {
     checkLoged();
     _fetchKategori();
-    _fetchProduk();
   }, []);
 
   const checkLoged = () => {
@@ -31,16 +31,17 @@ function Home() {
     };
     let req = await fetch(`/api/v1/categories`, options).then(res => res.json());
     setKategori(req.result)
+    _fetchProduk(req.result[0]['_id']);
   }
 
-  const _fetchProduk = async () => {
+  const _fetchProduk = async (byCategory) => {
     let token = localStorage.getItem('token');
     let options = {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     };
-    let req = await fetch(`/api/v1/products`, options).then(res => res.json());
+    let req = await fetch(`/api/v1/categories/${byCategory}/products`, options).then(res => res.json());
     setProduk(req.result)
   }
 
@@ -59,15 +60,19 @@ function Home() {
                 {
                   kategori.map((item, key) => (
                     <Nav.Item key={key}>
-                      <Nav.Link eventKey={`event-${key}`}>{item.name}</Nav.Link>
+                      <Nav.Link eventKey={`event-${key}`} onClick={e => _fetchProduk(item._id)}>{item.name}</Nav.Link>
                     </Nav.Item>
                   ))
                 }
               </Nav>
             </Col>
           </Row>
-          <Row>
-            
+          <Row className='mt-4'>
+            {
+              produk.map((item, key) => (
+                <Product key={key} item={item} />
+              ))
+            }
           </Row>
         </Container>
       </section>
