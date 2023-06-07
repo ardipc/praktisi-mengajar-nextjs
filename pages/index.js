@@ -2,13 +2,19 @@ import Header from '@/components/Header';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Placeholder, Row } from 'react-bootstrap';
 import Product from '@/components/Product';
 import Kategori from '@/components/Kategori';
+import KategoriPlaceholder from '@/components/KategoriPlaceholder';
+import ProductPlaceholder from '@/components/ProductPlaceholder';
 
 function Home() {
   const [isLoged, setIsLoged] = useState(false);
+
+  const [isKategori, setIsKategori] = useState(false);
   const [kategori, setKategori] = useState([]);
+  
+  const [isProduk, setIsProduk] = useState(false);
   const [produk, setProduk] = useState([]);
 
   useEffect(() => {
@@ -23,6 +29,7 @@ function Home() {
   }
 
   const _fetchKategori = async () => {
+    setIsKategori(true);
     let token = localStorage.getItem('token');
     let options = {
       headers: {
@@ -31,9 +38,11 @@ function Home() {
     };
     let req = await fetch(`/api/v1/categories`, options).then(res => res.json());
     setKategori(req.result)
+    setIsKategori(false);
   }
 
   const _fetchProduk = async () => {
+    setIsProduk(true);
     let token = localStorage.getItem('token');
     let options = {
       headers: {
@@ -42,6 +51,7 @@ function Home() {
     };
     let req = await fetch(`/api/v1/products`, options).then(res => res.json());
     setProduk(req.result)
+    setIsProduk(false);
   }
 
   return (
@@ -71,29 +81,41 @@ function Home() {
 
       <section>
         <Container>
-          <Row>
-            {kategori.map((item, key) => (
-              <Kategori key={key} item={item} />
-            ))}
-          </Row>
+          {
+            isKategori ?
+              <KategoriPlaceholder />
+              :
+              <Row>
+                {kategori.map((item, key) => (
+                  <Kategori key={key} item={item} />
+                ))}
+              </Row>
+          }
         </Container>
       </section>
 
       <section className="my-5">
         <Container>
-          <Row className="mb-4">
-            <Col className="d-flex justify-content-between align-items-center">
-              <span className="font-30">Produk Baru 🚀</span>
-              <Link href="/produk">Semua Produk</Link>
-            </Col>
-          </Row>
-          <div className="row gx-4 gx-lg-5">
-            {
-              produk.map((item, key) => (
-                <Product key={key} item={item} />
-              ))
-            }
-          </div>
+          {
+            isProduk ?
+              <ProductPlaceholder />
+              :
+              <>
+              <Row className="mb-4">
+                <Col className="d-flex justify-content-between align-items-center">
+                  <span className="font-30">Produk Baru 🚀</span>
+                  <Link href="/produk">Semua Produk</Link>
+                </Col>
+              </Row>
+              <div className="row gx-4 gx-lg-5">
+                {
+                  produk.map((item, key) => (
+                    <Product key={key} item={item} />
+                    ))
+                  }
+              </div>
+            </>
+          }
         </Container>
       </section>
     </>
