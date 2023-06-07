@@ -15,7 +15,10 @@ const Header = (props) => {
 
     const _cariProduk = (e, slug) => {
         e.preventDefault();
-        router.push(`/cari/${slug}`);
+        if(slug) {
+            // window.location.href = `/cari/${slug}`;
+            router.push(`/cari/${slug}`);
+        }
     }
 
     return (

@@ -8,13 +8,14 @@ import { Button, Card, Col, Container, Nav, Row, Tab } from 'react-bootstrap';
 
 function Home() {
   const router = useRouter();
+
   const [isLoged, setIsLoged] = useState(false);
   const [kategori, setKategori] = useState({});
   const [produk, setProduk] = useState([]);
 
   useEffect(() => {
     checkLoged();
-    _fetchProduk();
+    _fetchProduk(router.query.slug);
   }, []);
 
   const checkLoged = () => {
@@ -29,7 +30,7 @@ function Home() {
         'Authorization': `Bearer ${token}`
       }
     };
-    let req = await fetch(`/api/v1/products/name/${router.query.slug}`, options).then(res => res.json());
+    let req = await fetch(`/api/v1/products/name?q=${name}`, options).then(res => res.json());
     setProduk(req.result)
   }
 
